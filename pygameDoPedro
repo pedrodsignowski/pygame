@@ -1,17 +1,23 @@
 import pygame
 from pygame.locals import* # Dispensa a necessidade de pygame. para teclas, botões
-
 pygame.init()
+
 relogio = pygame.time.Clock() # Cria um relogio q roda o mesmo tick para pcs diferentes
 tela= pygame.display.set_mode((1000,600)) # Cria a janela
 corDaTela= (255,255,255)
 fonte = pygame.font.SysFont('arial', 50,True,False)
 mensagem = "Jogo"# Que jogo você pergunta. Não sei.
+mensagemMenu= "Jogar"# kkkkk
+mensagemMenu2="Gacha"
 corDaMensagem = (255,0,0)
-
 while True:
     relogio.tick(30)
     tela.fill(corDaTela)
-    formatacao_texto = fonte.render(mensagem, False, (255, 255, 255), corDaMensagem)
+    formatacao_texto = fonte.render(mensagem, False, (255, 255, 255), corDaMensagem)# Título do jogo
+    formatacao_textoMenu = fonte.render(mensagemMenu, False, (255, 255, 255), corDaMensagem)
+    formatacao_textoMenu2 = fonte.render(mensagemMenu2, False, (255, 255, 255), corDaMensagem)
+    retanguloMensagemMenu= pygame.draw.rect(tela,corDaMensagem,(437,200  ,50,50))
     tela.blit(formatacao_texto, (450, 40))
+    tela.blit(formatacao_textoMenu,(437,200))
+    tela.blit(formatacao_textoMenu2,(430,300))
     pygame.display.flip()#will update the contents of the entire display
