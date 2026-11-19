@@ -1,0 +1,17 @@
+import pygame
+from pygame.locals import* # Dispensa a necessidade de pygame. para teclas, botões
+
+pygame.init()
+relogio = pygame.time.Clock() # Cria um relogio q roda o mesmo tick para pcs diferentes
+tela= pygame.display.set_mode((1000,600)) # Cria a janela
+corDaTela= (255,255,255)
+fonte = pygame.font.SysFont('arial', 50,True,False)
+mensagem = "Jogo"# Que jogo você pergunta. Não sei.
+corDaMensagem = (255,0,0)
+
+while True:
+    relogio.tick(30)
+    tela.fill(corDaTela)
+    formatacao_texto = fonte.render(mensagem, False, (255, 255, 255), corDaMensagem)
+    tela.blit(formatacao_texto, (450, 40))
+    pygame.display.flip()#will update the contents of the entire display
