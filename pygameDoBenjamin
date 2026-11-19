@@ -46,7 +46,7 @@ bananinha = 0
 relogio = pygame.time.Clock()
 
 #inicializa o display ou janela((Comprimento,Largura))
-tela = pygame.display.set_mode((telacomprimento,telaalturain))
+mini = pygame.display.set_mode((telacomprimento,telaalturain))
 
 #fonte
 fonte = pygame.font.SysFont('arial', 50,True,False)
@@ -68,7 +68,7 @@ def ataque1():
             yhit+=50
         if dire1 == "cima":
             yhit-=50
-        hitboxataque = pygame.draw.rect(tela,(200,180,0),(xhit,yhit,60,60))
+        hitboxataque = pygame.draw.rect(mini,(200,180,0),(xhit,yhit,60,60))
         if hitboxataque.colliderect(blocoazul2):
             stun2 = 900
         if hitboxataque.colliderect(blocoazul3):
@@ -87,7 +87,7 @@ def ataque2():
             yhit+=50
         if dire2 == "cima":
             yhit-=50
-        hitboxataque = pygame.draw.rect(tela,(200,180,0),(xhit,yhit,60,60))
+        hitboxataque = pygame.draw.rect(mini,(200,180,0),(xhit,yhit,60,60))
         if hitboxataque.colliderect(blocoazul):
             stun = 900
         if hitboxataque.colliderect(blocoazul3):
@@ -106,7 +106,7 @@ def ataque3():
             yhit+=50
         if dire3 == "cima":
             yhit-=50
-        hitboxataque = pygame.draw.rect(tela,(200,180,0),(xhit,yhit,60,60))
+        hitboxataque = pygame.draw.rect(mini,(200,180,0),(xhit,yhit,60,60))
         if hitboxataque.colliderect(blocoazul):
             stun = 900
         if hitboxataque.colliderect(blocoazul2):
@@ -125,7 +125,7 @@ def ataque4():
             yhit+=50
         if dire4 == "cima":
             yhit-=50
-        hitboxataque = pygame.draw.rect(tela,(200,180,0),(xhit,yhit,60,60))
+        hitboxataque = pygame.draw.rect(mini,(200,180,0),(xhit,yhit,60,60))
         if hitboxataque.colliderect(blocoazul):
             stun = 900
         if hitboxataque.colliderect(blocoazul2):
