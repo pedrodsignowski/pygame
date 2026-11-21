@@ -1,2 +1,2 @@
-# pygameDoBenjamin
-pygameDoBenjamin
+# pygame
+pygame
