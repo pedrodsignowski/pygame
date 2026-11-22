@@ -83,10 +83,7 @@ texto3 = fonte.render(str(vezzes),True,(235,248,109),corDaMensagem)
 texto4 = fonte.render(str(vesses),True,(255, 97, 91),corDaMensagem)
 retanguloMensagemJogar= pygame.draw.rect(tela,corDaMensagem,(230,150,125,46))# Retângulo p hitbox Jogar      hitboxataque = pygame.draw.rect(tela,(200,180,0),(xhit,yhit,60,60))
 retanguloMensagemGacha= pygame.draw.rect(tela,corDaMensagem,(230,250,147,37))# Retangulo para hitbox Gacha(tela,cor,posição e tamanho
-teto=pygame.image.load('img/teto-pera.jpg')
-serj= pygame.image.load('img/serj.jpg')
-teto= pygame.transform.scale(teto,(50,50))
-serj=pygame.transform.scale(serj,(50,50))
+
 
 #Título janela
 pygame.display.set_caption('Jogo')
@@ -239,16 +236,7 @@ tela.blit(mostrarMensagemInicial2,(80,85))
 tela.blit(teto,(330,145))
 tela.blit(serj,(190,145))
 pygame.display.flip()
-for i in range(0,11):
-    tela.fill(corPreta)
-    tela.blit(mostrarMensagemInicial,(30,20))
-    tela.blit(mostrarMensagemInicial2,(80,85))
-    teto2= pygame.transform.rotate(teto,(i*36))
-    serj2= pygame.transform.rotate(serj,(i*-36))
-    tela.blit(serj2,(190,145))
-    tela.blit(teto2,(330,145))
-    pygame.time.wait(500)
-    pygame.display.flip()
+
 #Loop infinito
 
 while True:
