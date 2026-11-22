@@ -230,12 +230,7 @@ def andar4():
             yyyy -= 1  
             dire4 = "cima"
 
-tela.fill(corPreta)
-tela.blit(mostrarMensagemInicial,(30,20))
-tela.blit(mostrarMensagemInicial2,(80,85))
 
-pygame.display.flip()
-pygame.time.wait(5000)
 #Loop infinito
 
 while True:
