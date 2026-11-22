@@ -233,8 +233,7 @@ def andar4():
 tela.fill(corPreta)
 tela.blit(mostrarMensagemInicial,(30,20))
 tela.blit(mostrarMensagemInicial2,(80,85))
-tela.blit(teto,(330,145))
-tela.blit(serj,(190,145))
+
 pygame.display.flip()
 pygame.time.wait(5000)
 #Loop infinito
