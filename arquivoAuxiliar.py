@@ -4,3 +4,4 @@ vermelhoBloco=(255,97 ,91)
 azulBloco=(147,228,246)
 verdeBloco=(114,243,140)
 amareloBloco=(235,248,109)
+mensagemGacha= f'Você tem'
