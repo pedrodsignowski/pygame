@@ -8,8 +8,8 @@ from pygame.locals import* # Dispensa a necessidade de pygame. para teclas, bot�
 from os import sys
 import json
 from pathlib import Path  # caminho completo do arquivo
-
-
+import arquivoAuxiliar
+from arquivoAuxiliar import branco, vermelho, azulBloco, verdeBloco, vermelhoBloco, amareloBloco
 #Inicialização
 pygame.init()
 #Fonte
@@ -259,10 +259,10 @@ def jogo():
         if stun2>0:stun2-=1
         if stun3>0:stun3-=1
         if stun4>0:stun4-=1
-        blocoazul4 = pygame.draw.rect(tela,(255,97 ,91 ),(xxxx,yyyy,50,50))
-        blocoazul3 = pygame.draw.rect(tela,(235,248,109),(xxx ,yyy ,50,50))
-        blocoazul2 = pygame.draw.rect(tela,(114,243,140),(xx  ,yy  ,50,50))
-        blocoazul  = pygame.draw.rect(tela,(147,228,246),(x   ,y   ,50,50))
+        blocoazul4 = pygame.draw.rect(tela,(255,97 ,91 ),(xxxx,yyyy,50,50))#Vermelho
+        blocoazul3 = pygame.draw.rect(tela,(235,248,109),(xxx ,yyy ,50,50))#Amarelo
+        blocoazul2 = pygame.draw.rect(tela,(114,243,140),(xx  ,yy  ,50,50))#Verde
+        blocoazul  = pygame.draw.rect(tela,(147,228,246),(x   ,y   ,50,50))#Azul
         blocoverme = pygame.draw.rect(tela,(136,135,135),(xa  ,ya  ,50,50))
   
         for event in pygame.event.get():
@@ -335,7 +335,36 @@ def jogo():
         if yyyy>telaalturain-50:
             yyyy=telaalturain-50 
         pygame.display.update()
-           
+def gacha():
+    selecionarBloco= fonte2.render("Selecione o bloco", True,(branco),corDaMensagem)#(253, 34)    
+    textoVermelho=fonte2.render("Bloco vermelho",True,branco, corDaMensagem)
+    textoAzul= fonte2.render("Bloco azul", True, branco, corDaMensagem) 
+    textoVerde= fonte2.render("Bloco verde", True, branco, corDaMensagem)
+    textoAmarelo= fonte2.render("Bloco amarelo", True, branco, corDaMensagem)
+
+
+    while True:
+        tela.fill(branco)
+        tela.blit(textoVermelho,(300,0))
+        tela.blit(selecionarBloco,(0,0))
+        retanguloSelecionarBlocoVermelho = pygame.draw.rect(tela,(vermelhoBloco),(260,0,34,34))
+        pygame.display.flip()
+        for event in pygame.event.get():
+            if event.type==MOUSEBUTTONDOWN and event.button==1 and retanguloSelecionarBlocoVermelho.collidepoint(event.pos):
+                selecionarBloco= fonte2.render("Selecione o bloco:", True,(branco),corDaMensagem)#(253, 34)    
+                while True:
+                        tela.blit(selecionarBloco,(0,0))
+                        retanguloSelecionarBlocoVermelho = pygame.draw.rect(tela,(vermelhoBloco),(270,0,34,34))
+                        retanguloSelecionarBlocoAmarelo= pygame.draw.rect(tela,(amareloBloco),(270,36,34,34))
+                        retanguloSelecionarBlocoVerde= pygame.draw.rect(tela,(verdeBloco),(270,72,34,34))
+                        retanguloSelecionarBlocoAzul= pygame.draw.rect(tela,(azulBloco),(270,108,34,34))
+                        tela.blit(textoVermelho,(310,0))
+                        tela.blit(textoAmarelo,(310,36))
+                        tela.blit(textoVerde,(310,72))
+                        tela.blit(textoAzul,(310,108))
+                        pygame.display.flip()
+
+
 def menu():
     while True:
         relogio.tick(300)
@@ -349,16 +378,17 @@ def menu():
                         jogo()
                     elif event.type == pygame.MOUSEBUTTONDOWN and retanguloMensagemGacha.collidepoint(event.pos):
                         tela.fill(corDaTela)
-                        os.system('start https://spinthewheel.io/pt/wheels/M9loF8Nirf2f6lNjodDicz0xJmU9MA==')#Loop infinito
+                        #os.system('start https://spinthewheel.io/pt/wheels/M9loF8Nirf2f6lNjodDicz0xJmU9MA==')#Loop infinito
+                        gacha()
 def menuPausa():
     global x,y,xx,yy,xxx,yyy,xxxx,yyyy,xa,ya
     global pontos
     escuro = pygame.Surface(tela.get_size(), pygame.SRCALPHA)
     fundo=tela.copy()
     escuro.fill((0, 0, 0, 150))
-    botaoVoltar= fonte3.render("Voltar ao menu principal",True,(255,255,255),corDaMensagem)
-    botaoPontos= fonte3.render("Reinicia pontos",True,(255,255,255),corDaMensagem)
-    botaoRetomarJogo= fonte3.render("Voltar ao jogo",True,(255,255,255),corDaMensagem)
+    botaoVoltar= fonte3.render("Voltar ao menu principal",True,(branco),corDaMensagem)
+    botaoPontos= fonte3.render("Reiniciar pontos",True,(branco),corDaMensagem)
+    botaoRetomarJogo= fonte3.render("Voltar ao jogo",True,(branco),corDaMensagem)
     retanguloBotoRetomarJogo= pygame.draw.rect(tela,(corDaMensagem),(230,210,161, 27))
     retanguloBotao= pygame.draw.rect(tela,(corDaMensagem),(170,150,281, 27)) 
     retanguloBotoMenu=pygame.draw.rect(tela,(corDaMensagem),(220,180,189, 27)) 
@@ -397,9 +427,6 @@ def menuPausa():
 while True:
     menu()
     pygame.display.update()
-#will update the contents of the entire display 
-
-#Loop infinito
 
 
 
