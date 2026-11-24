@@ -1,0 +1,6 @@
+branco=(255,255,255)
+vermelho=(255,0,0)
+vermelhoBloco=(255,97 ,91)
+azulBloco=(147,228,246)
+verdeBloco=(114,243,140)
+amareloBloco=(235,248,109)
