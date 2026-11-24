@@ -7,7 +7,7 @@ import random
 from pygame.locals import* # Dispensa a necessidade de pygame. para teclas, botões
 from os import sys
 import json
- 
+from pathlib import Path  # caminho completo do arquivo
 
 
 #Inicialização
@@ -54,14 +54,11 @@ corDaTela= (255,255,255)
 mensagem = "Jogo"
 mensagemMenuJogar= "Jogar"
 mensagemMenuGacha="Gacha"
-mensagemInicial = "Uma distribuição Pedro e Benjamin"
-mensagemInicial2="Eu não tenho nada para fazer"
+
 corDaMensagem = (255,0,0)
 formatacao_texto = fonte.render(mensagem, True, (255, 255, 255), corDaMensagem)# Título do jogo
 formatacao_textoMenuJogar = fonte.render(mensagemMenuJogar, True, (255, 255, 255), corDaMensagem)#Botão Jogar
 formatacao_textoMenuGacha = fonte.render(mensagemMenuGacha, True, (255, 255, 255), corDaMensagem)#Botão Gacha
-mostrarMensagemInicial= fonte2.render(mensagemInicial,True,corDaTela)
-mostrarMensagemInicial2= fonte2.render(mensagemInicial2,True,corDaTela)
 
 retanguloMensagemJogar= pygame.draw.rect(tela,corDaMensagem,(230,150,125,46))# Retângulo p hitbox Jogar      hitboxataque = pygame.draw.rect(tela,(200,180,0),(xhit,yhit,60,60))
 retanguloMensagemGacha= pygame.draw.rect(tela,corDaMensagem,(230,250,147,37))# Retangulo para hitbox Gacha(tela,cor,posição e tamanho
@@ -220,15 +217,24 @@ def jogo():
     global pontos
     global telacomprimento,telaalturain,veses,vezes,vezzes,vesses,stun,stun2,stun3,stun4,blocoazul,blocoazul2,blocoazul3,blocoazul4
     global x,y,xx,yy,xxx,yyy,xxxx,yyyy,xa,ya
-     #Escrituras
-    bananinha = 0
-
+    bananinha = 0       
+    #Pega os pontos do arquivo .json
+    arquivo= open("pontos.json","r")
+    dados= json.load(arquivo)
+    arquivo.close()
+    vezes= dados["Bloco Azul:"]
+    veses= dados['Bloco Verde:']
+    vezzes = dados['Bloco Amarelo:']
+    vesses = dados['Bloco Vermelho:']
     posicaoHorizontalPlacar = telacomprimento -75
     posicaoHorizontalPlacar2 = telacomprimento -78
     posicaoVerticalPlacar= telaalturain-55
     posicaoVerticalPlacar2= telaalturain-58
     while True:
-        pontos={"Bloco Azul:",vezes,"Bloco Verde:",veses,"Bloco Amarelo:",vezzes,"Bloco Vermelho",vesses}
+        pontos={"Bloco Azul:":vezes,
+                "Bloco Verde:":veses,
+                "Bloco Amarelo:":vezzes,
+                "Bloco Vermelho:":vesses}#Dicionario
         textoo = fonte.render(str(vezes) ,True,(  0,  0,  0))    
         textoo2= fonte.render(str(veses) ,True,(  0,  0,  0))
         textoo3= fonte.render(str(vezzes),True,(  0,  0,  0))
@@ -345,24 +351,49 @@ def menu():
                         tela.fill(corDaTela)
                         os.system('start https://spinthewheel.io/pt/wheels/M9loF8Nirf2f6lNjodDicz0xJmU9MA==')#Loop infinito
 def menuPausa():
+    global x,y,xx,yy,xxx,yyy,xxxx,yyyy,xa,ya
     global pontos
     escuro = pygame.Surface(tela.get_size(), pygame.SRCALPHA)
     fundo=tela.copy()
     escuro.fill((0, 0, 0, 150))
-    botaoVoltar= fonte3.render("Voltar ao menu principal",True,corDaMensagem)
-    retanguloBotao= pygame.draw.rect(tela,(255,255,255),(170,150,281, 27)) 
+    botaoVoltar= fonte3.render("Voltar ao menu principal",True,(255,255,255),corDaMensagem)
+    botaoPontos= fonte3.render("Reinicia pontos",True,(255,255,255),corDaMensagem)
+    botaoRetomarJogo= fonte3.render("Voltar ao jogo",True,(255,255,255),corDaMensagem)
+    retanguloBotoRetomarJogo= pygame.draw.rect(tela,(corDaMensagem),(230,210,161, 27))
+    retanguloBotao= pygame.draw.rect(tela,(corDaMensagem),(170,150,281, 27)) 
+    retanguloBotoMenu=pygame.draw.rect(tela,(corDaMensagem),(220,180,189, 27)) 
+    #print(fonte3.size("Reiniciar pontos")) 
+
     while True:
         relogio.tick(300)
         tela.blit(fundo, (0, 0))
         tela.blit(escuro, (0, 0)) 
         tela.blit(botaoVoltar,((170,150))) 
+        tela.blit(botaoPontos,(220,180))
+        tela.blit(botaoRetomarJogo,(230,210))
         pygame.display.update()
         for event in pygame.event.get():
-            if event.type==MOUSEBUTTONDOWN and retanguloBotao.collidepoint(event.pos) and event.button==1:
-                print(pontos)
-                menu()  
+            if event.type==MOUSEBUTTONDOWN and retanguloBotao.collidepoint(event.pos) and event.button==1:  #Voltar ao menu princiapl
+                x,y,xx,yy,xxx,yyy,xxxx,yyyy,xa,ya=0,0,telacomprimento-50,0,telacomprimento-50,telaalturain-50,0,telaalturain-50,randrange(50,telacomprimento-50,50),randrange(50,telaalturain-50,50)
                 with open("pontos.json","w") as arquivo:
                     json.dump(pontos,arquivo)
+                menu()#Chamar menu antes de salvar travava o codigo por causa do while true de menu()
+            if event.type==MOUSEBUTTONDOWN and event.button==1 and retanguloBotoMenu.collidepoint(event.pos):#Reinicia os pontos
+                x,y,xx,yy,xxx,yyy,xxxx,yyyy,xa,ya=0,0,telacomprimento-50,0,telacomprimento-50,telaalturain-50,0,telaalturain-50,randrange(50,telacomprimento-50,50),randrange(50,telaalturain-50,50)
+                vezes,veses,vezzes,vesses=0,0,0,0
+
+                pontos={"Bloco Azul:":vezes,
+                                "Bloco Verde:":veses,
+                                "Bloco Amarelo:":vezzes,
+                                "Bloco Vermelho:":vesses}#Dicionario
+                with open("pontos.json","w") as arquivo:#Tem que existir um jeito melhor de fazer isso
+                    json.dump(pontos,arquivo)
+                jogo()
+            if event.type==MOUSEBUTTONDOWN and event.button==1 and retanguloBotoRetomarJogo.collidepoint(event.pos):#Continua o jogo
+                with open("pontos.json","w") as arquivo:#Tem que existir um jeito melhor de fazer isso
+                    json.dump(pontos,arquivo)
+                jogo()
+
 while True:
     menu()
     pygame.display.update()
