@@ -9,7 +9,7 @@ from os import sys
 import json
 from pathlib import Path  # caminho completo do arquivo
 import arquivoAuxiliar
-from arquivoAuxiliar import branco, vermelho, azulBloco, verdeBloco, vermelhoBloco, amareloBloco
+from arquivoAuxiliar import branco, vermelho, azulBloco, verdeBloco, vermelhoBloco, amareloBloco, mensagemGacha
 #Inicialização
 pygame.init()
 #Fonte
@@ -341,8 +341,10 @@ def gacha():
     textoAzul= fonte2.render("Bloco azul", True, branco, corDaMensagem) 
     textoVerde= fonte2.render("Bloco verde", True, branco, corDaMensagem)
     textoAmarelo= fonte2.render("Bloco amarelo", True, branco, corDaMensagem)
-
-
+    mensagemPontosVermelho= fonte2.render(f'{mensagemGacha} {vesses} pontos',True,branco, corDaMensagem)
+    mensagemPontosAzul=fonte2.render(f'{mensagemGacha} {vezes} pontos',True,branco, corDaMensagem)
+    mensagemPontosVerde=fonte2.render(f'{mensagemGacha} {veses} pontos',True,branco, corDaMensagem)
+    mensagemPontosAmarelo = fonte2.render(f'{mensagemGacha} {vezzes} pontos',True,branco, corDaMensagem)
     while True:
         tela.fill(branco)
         tela.blit(textoVermelho,(300,0))
@@ -353,6 +355,8 @@ def gacha():
             if event.type==MOUSEBUTTONDOWN and event.button==1 and retanguloSelecionarBlocoVermelho.collidepoint(event.pos):
                 selecionarBloco= fonte2.render("Selecione o bloco:", True,(branco),corDaMensagem)#(253, 34)    
                 while True:
+                        tela.fill(branco)
+                        tela.blit(selecionarBloco,(0,0))
                         tela.blit(selecionarBloco,(0,0))
                         retanguloSelecionarBlocoVermelho = pygame.draw.rect(tela,(vermelhoBloco),(270,0,34,34))
                         retanguloSelecionarBlocoAmarelo= pygame.draw.rect(tela,(amareloBloco),(270,36,34,34))
@@ -363,6 +367,22 @@ def gacha():
                         tela.blit(textoVerde,(310,72))
                         tela.blit(textoAzul,(310,108))
                         pygame.display.flip()
+                        for event in pygame.event.get():
+                            if event.type==MOUSEBUTTONDOWN and event.button==1 and retanguloSelecionarBlocoVermelho.collidepoint(event.pos):
+                                while True:
+                                    tela.fill(branco)
+                                    retanguloSelecionarBlocoVermelho = pygame.draw.rect(tela,(vermelhoBloco),(0,0,34,34),width=50)
+                                    tela.blit(textoVermelho,(40,0))
+                                    tela.blit(mensagemPontosVermelho,(0,50))
+                                    
+                                    pygame.display.update()
+
+                            if event.type==MOUSEBUTTONDOWN and event.button==1 and retanguloSelecionarBlocoAmarelo.collidepoint(event.pos):
+                                ...
+                            if event.type==MOUSEBUTTONDOWN and event.button==1 and retanguloSelecionarBlocoVerde.collidepoint(event.pos):
+                                ...
+                            if event.type==MOUSEBUTTONDOWN and event.button==1 and retanguloSelecionarBlocoAzul.collidepoint(event.pos):
+                                ...
 
 
 def menu():
