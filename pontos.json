@@ -1,5 +1,1 @@
-
-        pontos={"Bloco Azul:":vezes,
-                "Bloco Verde:":veses,
-                "Bloco Amarelo:":vezzes,
-                "Bloco Vermelho:":vesses}#Dicionario
+{"Bloco Azul:": 0, "Bloco Verde:": 0, "Bloco Amarelo:": 0, "Bloco Vermelho:": 0}
